@@ -13,6 +13,10 @@ const INGREDIENT_PRICES = {
 }
 // Componente principal, onde toda a lógica está localizada.
 
+/**  
+ * teste caraio
+ */ 
+
 class BurguerBuilder extends Component {
     state = {
         ingredients: {
