@@ -4,6 +4,7 @@ import classes from './Burguer.module.css';
 import BurguerIngredient from './BurguerIngredients/BurguerIngredient';
 
 const Burguer = (props) => {
+    console.log(props)
    // console.log(props.ingredients) -> recebe o objeto contendo os ingredientes e a quantidade
     let transformedIngredients = Object.keys(props.ingredients) // extrai o nome das propriedades definidas em um array
     .map((igKey)=>{
