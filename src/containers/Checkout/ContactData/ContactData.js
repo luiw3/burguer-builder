@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Button from '../../../components/UI/Button/Button';
 import classes from './ContactData.module.css';
@@ -102,8 +103,8 @@ class ContactData extends Component {
             formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value; // atribui o nome do identificador ao valor do mesmo no state
         }
         const order = {
-            ingredients: this.props.ingredients,
-            price: this.props.price,
+            ingredients: this.props.ingr,
+            price: this.props.tPrice,
             orderData: formData
         }
         axios.post('/orders.json', order)
@@ -192,5 +193,11 @@ class ContactData extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return{
+        ingr: state.ingredients,
+        tPrice: state.totalPrice
+    }
+}
 
-export default ContactData;
+export default connect(mapStateToProps)(ContactData);
