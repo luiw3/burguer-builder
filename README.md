@@ -14,7 +14,7 @@ O projeto é um "montador de hamburguer" onde o usuário consegue montar um hamb
 
 ## EN-US
 
-This project refers to the course "React - The complete guide (incl Hooks,React Router, Redux)" taught by Maximilian Schwarzmüller, the course covers basics and advanced concepts about React using others libs like [React-Router](https://github.com/ReactTraining/react-router/) to create the dinamic routes, [Redux](https://github.com/reduxjs/redux) and [React-Redux](https://github.com/reduxjs/react-redux) as state managers,[Axios](https://github.com/axios/axios) to make HTTP requests and finally [Redux-Thunk](https://github.com/reduxjs/redux-thunk) to do asynchronous operations in Redux and [Firebase](https://firebase.google.com/) as database.
+This project refers to the course "React - The complete guide (incl Hooks,React Router, Redux)" taught by Maximilian Schwarzmüller, the course covers basics and advanced concepts about React using others libs like [React-Router](https://github.com/ReactTraining/react-router/) to create the dinamic routes, [Redux](https://github.com/reduxjs/redux) and [React-Redux](https://github.com/reduxjs/react-redux) as state managers, [Axios](https://github.com/axios/axios) to make HTTP requests and finally [Redux-Thunk](https://github.com/reduxjs/redux-thunk) to do asynchronous operations in Redux and [Firebase](https://firebase.google.com/) as database.
 
 ### `PROJECT`
 The project is a burguer builder where the user can make it own burguer using the available ingredients, proceed to checkout storing the order data in the DB and using this data to display past orders.
