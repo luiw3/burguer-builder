@@ -1,68 +1,27 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## PT-BT
+Esse projeto é referente ao curso "React - The complete guide (incl Hooks,React Router, Redux)" ministrado por Maximilian Schwarzmüller, o curso em questão aborda os conceitos básicos a avançados do React utilizando-se também de outras libs como [React-Router](https://github.com/ReactTraining/react-router/) para criar as rotas da aplicação,[Redux](https://github.com/reduxjs/redux) e [React-Redux](https://github.com/reduxjs/react-redux) como gerenciador de estados, [Axios](https://github.com/axios/axios) para realizar requisições HTTP e por fim [Redux-Thunk](https://github.com/reduxjs/redux-thunk) para realizar operações assíncronas com o Redux e o [Firebase](https://firebase.google.com/) como banco de dados.
 
-## Available Scripts
+### `PROJETO`
+O projeto é um "montador de hamburguer" onde o usuário consegue montar um hamburguer com os ingredientes disponiveis, realizar checkout do mesmo enviando os dados do pedido para o DB e buscar esses dados mostrando os pedidos anteriores.
 
-In the project directory, you can run:
+### ` FALTA IMPLEMENTAR `
+- Método de autenticação<br/>
+- Testes
 
-### `npm start`
+### ` ALTERAÇÕES E MELHORIAS PRÓPRIAS `
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
 
-### `npm test`
+## EN-US
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This project refers to the course "React - The complete guide (incl Hooks,React Router, Redux)" taught by Maximilian Schwarzmüller, the course covers basics and advanced concepts about React using others libs like [React-Router](https://github.com/ReactTraining/react-router/) to create the dinamic routes, [Redux](https://github.com/reduxjs/redux) and [React-Redux](https://github.com/reduxjs/react-redux) as state managers,[Axios](https://github.com/axios/axios) to make HTTP requests and finally [Redux-Thunk](https://github.com/reduxjs/redux-thunk) to do asynchronous operations in Redux and [Firebase](https://firebase.google.com/) as database.
 
-### `npm run build`
+### `PROJECT`
+The project is a burguer builder where the user can make it own burguer using the available ingredients, proceed to checkout storing the order data in the DB and using this data to display past orders.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### `TO-DO`
+- Authentication metod<br/>
+- Tests
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### `MY CHANGES AND UPGRADES`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
