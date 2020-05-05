@@ -5,7 +5,6 @@ Esse projeto é referente ao curso "React - The complete guide (incl Hooks,React
 O projeto é um "montador de hamburguer" onde o usuário consegue montar um hamburguer com os ingredientes disponiveis, realizar checkout do mesmo enviando os dados do pedido para o DB e buscar esses dados mostrando os pedidos anteriores.
 
 ### ` FALTA IMPLEMENTAR `
-- Método de autenticação<br/>
 - Testes
 
 ### ` ALTERAÇÕES E MELHORIAS PRÓPRIAS `
