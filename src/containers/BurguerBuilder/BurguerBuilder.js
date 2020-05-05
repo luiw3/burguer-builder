@@ -9,7 +9,7 @@ import OrderSummary from '../../components/Burguer/OrderSummary/OrderSummary';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import * as actionType from '../../store/action';
+import * as actions from '../../store/actions/';
 
 
 // Componente principal, onde toda a lógica está localizada.
@@ -21,18 +21,10 @@ import * as actionType from '../../store/action';
 class BurguerBuilder extends Component {
     state = {
         purchasing: false,
-        loading: false,
-        error: false
     }
 
     componentDidMount() {
-        // axios.get('ingredients.json')
-        //     .then(response => {
-        //         this.setState({ingredients:response.data})
-        //     })
-        //     .catch(err => {
-        //         this.setState({ error: true })
-        //     });
+       this.props.onInitIngredients();
     }
 
     updatedPurchaseState(ingredients) {
@@ -55,6 +47,7 @@ class BurguerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
+        this.props.onInitPurchase();
         this.props.history.push('/checkout');
     }
     render() {
@@ -66,7 +59,7 @@ class BurguerBuilder extends Component {
         }
 
         let orderSummary = null;
-        let burguer = this.state.error ? <p>Ingredients cant be loaded</p> : <Spinner />
+        let burguer = this.props.err ? <p>Ingredients cant be loaded</p> : <Spinner />
         if (this.props.ingr) {
             burguer = (
                 <Aux style={{ display: 'flex', flexDirection: 'column' }}>
@@ -87,9 +80,6 @@ class BurguerBuilder extends Component {
                 price={this.props.tPrice} />
 
         }
-        if (this.state.loading) {
-            orderSummary = <Spinner />
-        }
         return (
             <Aux>
                 < Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
@@ -103,15 +93,18 @@ class BurguerBuilder extends Component {
 
 const mapStateToProps = state => {
     return {
-        ingr: state.ingredients,
-        tPrice: state.totalPrice
+        ingr: state.burguerBuilder.ingredients,
+        tPrice: state.burguerBuilder.totalPrice,
+        err: state.burguerBuilder.error
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddIngredients: (ingredientName) => dispatch({type:actionType.ADD_INGREDIENT, ingredientName: ingredientName}),
-        onDeleteIngredients: (ingredientName) => dispatch({type:actionType.DELETE_INGREDIENT, ingredientName: ingredientName})
+        onAddIngredients: (ingredientName) => dispatch(actions.addIngredient(ingredientName)),
+        onDeleteIngredients: (ingredientName) => dispatch(actions.deleteIngredient(ingredientName)),
+        onInitIngredients: () => dispatch(actions.initIngredients()),
+        onInitPurchase: () => dispatch(actions.purchaseInit())
     }
 }
 
