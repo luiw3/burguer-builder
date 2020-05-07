@@ -49,7 +49,8 @@ class ContactData extends Component {
                 validation: {
                     required: true,
                     minLength:5,
-                    maxLength:5
+                    maxLength:5,
+                    isNumeric: true
                 },
                 valid: false,
                 touched: false
@@ -75,7 +76,8 @@ class ContactData extends Component {
                 },
                 value: '',
                 validation: {
-                    required: true
+                    required: true,
+                    isEmail: true
                 },
                 valid: false,
                 touched: false
@@ -105,9 +107,10 @@ class ContactData extends Component {
         const order = {
             ingredients: this.props.ingr,
             price: this.props.tPrice,
-            orderData: formData
+            orderData: formData,
+            userId: this.props.userId
         }
-        this.props.onOrderBurguer(order);
+        this.props.onOrderBurguer(order,this.props.token);
     }
 
     checkValidity(value, rules) {   // metodo para checkar se o formulario é valido ou não
@@ -123,6 +126,16 @@ class ContactData extends Component {
 
         if(rules.maxLength) {  // checka se esta dentro da quantidade maxima de caracteres
             isValid = value.length <= rules.maxLength && isValid;
+        }
+        
+        if (rules.isEmail) {
+            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+            isValid = pattern.test(value) && isValid
+        }
+
+        if (rules.isNumeric) {
+            const pattern = /^\d+$/;
+            isValid = pattern.test(value) && isValid
         }
 
         return isValid;
@@ -160,16 +173,16 @@ class ContactData extends Component {
         }
         let form = (
             <form onSubmit={this.orderHandler}>
-                {formElementsArray.map(formEl => ( //renderiza um componente pra cada valor presente no array passando as informações do state como props para o componente personalizado
+                {formElementsArray.map(formElement => ( //renderiza um componente pra cada valor presente no array passando as informações do state como props para o componente personalizado
                     <Input
-                        key={formEl.id}
-                        elementType={formEl.config.elementType}
-                        elementConfig={formEl.config.elementConfig}
-                        value={formEl.config.value}
-                        invalid={!formEl.config.valid}
-                        shouldValidate={formEl.config.validation}
-                        touched={formEl.config.touched}
-                        changed={(e) => this.inputChangedHandler(e, formEl.id)}/>
+                        key={formElement.id}
+                        elementType={formElement.config.elementType}
+                        elementConfig={formElement.config.elementConfig}
+                        value={formElement.config.value}
+                        invalid={!formElement.config.valid}
+                        shouldValidate={formElement.config.validation}
+                        touched={formElement.config.touched}
+                        changed={(e) => this.inputChangedHandler(e, formElement.id)}/>
                 ))}
                 <Button btnType="Success" disabled={!this.state.formIsValid}>Order</Button>
             </form>
@@ -190,13 +203,15 @@ const mapStateToProps = state => {
     return{
         ingr: state.burguerBuilder.ingredients,
         tPrice: state.burguerBuilder.totalPrice,
-        loading: state.order.loading
+        loading: state.order.loading,
+        token: state.auth.token,
+        userId:state.auth.userId
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return{
-     onOrderBurguer: (orderData) => dispatch(actions.purchaseBurguer(orderData))
+     onOrderBurguer: (orderData, token) => dispatch(actions.purchaseBurguer(orderData, token))
     }
 }
 
