@@ -10,6 +10,8 @@ import * as actions from '../../../store/actions/'
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
 
+import {updateObject, checkValidity} from '../../../shared/utility';
+
 class ContactData extends Component {
     state = {
         orderForm: { //Cada elemento no formulário tem um key value (nome) e as configurações.
@@ -113,45 +115,17 @@ class ContactData extends Component {
         this.props.onOrderBurguer(order,this.props.token);
     }
 
-    checkValidity(value, rules) {   // metodo para checkar se o formulario é valido ou não
-        let isValid = true;
-
-        if (rules.required) {   // checka se existe as regras de validação
-            isValid = value.trim() !== '' && isValid;
-        }
-
-        if(rules.minLength) { // checka se esta dentro da quantidade minima de caracteres
-            isValid = value.length >= rules.minLength && isValid;
-        }
-
-        if(rules.maxLength) {  // checka se esta dentro da quantidade maxima de caracteres
-            isValid = value.length <= rules.maxLength && isValid;
-        }
-        
-        if (rules.isEmail) {
-            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-            isValid = pattern.test(value) && isValid
-        }
-
-        if (rules.isNumeric) {
-            const pattern = /^\d+$/;
-            isValid = pattern.test(value) && isValid
-        }
-
-        return isValid;
-    }
 
     inputChangedHandler = (e, inputIdentifier) => {
-        const updatedOrderForm = {
-            ...this.state.orderForm   //clona o state antigo
-        };
-        const updatedFormElement = {
-            ...updatedOrderForm[inputIdentifier]  //clona o objeto especifico no state antigo
-        };
-        updatedFormElement.value = e.target.value; //atribui ao value no objeto especifico clonado ao value do input
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);   // faz a chamada ao método pra checkar se o formulário é valido ou não
-        updatedFormElement.touched = true;
-        updatedOrderForm[inputIdentifier] = updatedFormElement; //atualiza o valor no state clonado
+       
+        const updatedFormElement = updateObject(this.state.orderForm[inputIdentifier], {
+            value:e.target.value,
+            valid: checkValidity(e.target.value,this.state.orderForm[inputIdentifier].validation),
+            touched:true
+        })
+        const updatedOrderForm = updateObject(this.state.orderForm,{
+            [inputIdentifier]: updatedFormElement
+        })
         
         let formIsValid = true; 
 

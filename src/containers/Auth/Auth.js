@@ -9,6 +9,8 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import classes from './Auth.module.css';
 import * as actions from '../../store/actions';
 
+import {updateObject, checkValidity} from '../../shared/utility';
+
 
 class Auth extends Component {
     state = {
@@ -52,44 +54,19 @@ class Auth extends Component {
         }
     }
 
-    checkValidity(value, rules) {   // metodo para checkar se o formulario é valido ou não
-        let isValid = true;
 
-        if (rules.required) {   // checka se existe as regras de validação
-            isValid = value.trim() !== '' && isValid;
-        }
-
-        if(rules.minLength) { // checka se esta dentro da quantidade minima de caracteres
-            isValid = value.length >= rules.minLength && isValid;
-        }
-
-        if(rules.maxLength) {  // checka se esta dentro da quantidade maxima de caracteres
-            isValid = value.length <= rules.maxLength && isValid;
-        }
-
-        if (rules.isEmail) {
-            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-            isValid = pattern.test(value) && isValid
-        }
-
-        if (rules.isNumeric) {
-            const pattern = /^\d+$/;
-            isValid = pattern.test(value) && isValid
-        }
-
-        return isValid;
-    }
 
     inputChangedHandler = (e, controlName) => {
-        const updatedControls = {
-            ...this.state.controls,
-            [controlName]: {
-                ...this.state.controls[controlName],
-                value: e.target.value,
-                valid: this.checkValidity(e.target.value, this.state.controls[controlName].validation),
-                touched: true
-            }
-        };
+
+        const updatedKeyControl = updateObject(this.state.controls[controlName],{
+            value:e.target.value,
+            valid: checkValidity(e.target.value,this.state.controls[controlName].validation),
+            touched: true
+        })
+        const updatedControls = updateObject(this.state.controls,{
+            [controlName]: updatedKeyControl
+        })
+
         this.setState({controls: updatedControls})
     }
 
