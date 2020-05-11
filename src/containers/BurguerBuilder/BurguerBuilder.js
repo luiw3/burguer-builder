@@ -18,7 +18,7 @@ import * as actions from '../../store/actions/';
  * teste caraio
  */
 
-class BurguerBuilder extends Component {
+export class BurguerBuilder extends Component {
     state = {
         purchasing: false,
     }
