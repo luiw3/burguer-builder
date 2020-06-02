@@ -17,6 +17,6 @@ export function* watchBurgerBuilder(){
 }
 
 export function* watchOrders(){
-    yield takeEvery(actionTypes.PURCHASE_BURGUER_INIT, purchaseBurgerSaga);
-    yield takeEvery(actionTypes.FETCH_ORDERS_INIT, fetchOrdersSaga);
+    yield takeEvery(actionTypes.PURCHASE_BURGER, purchaseBurgerSaga);
+    yield takeEvery(actionTypes.FETCH_ORDERS, fetchOrdersSaga);
 }
