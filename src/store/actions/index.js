@@ -1,18 +1,31 @@
 export {
     addIngredient,
     deleteIngredient,
-    initIngredients
-} from './burguerBuilder';
+    initIngredients,
+    setIngredients,
+    fetchIngredientsFail
+} from './burgerBuilder';
 
 export {
     purchaseBurguer,
     purchaseInit,
-    fetchOrders
+    fetchOrders,
+    fetchOrdersStart,
+    fetchOrdersSuccess,
+    fetchOrdersFail,
+    purchaseBurguerStart,
+    purchaseBurguerFail,
+    purchaseBurguerSuccess
 } from './order';
 
 export {
     auth,
     logout,
     setAuthRedirectPath,
-    authCheckState
+    authCheckState,
+    logoutSucceed,
+    authStart,
+    authSuccess,
+    authFail,
+    checkAuthTimeout
 } from './auth'
