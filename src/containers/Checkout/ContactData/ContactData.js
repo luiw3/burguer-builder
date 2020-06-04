@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import Button from '../../../components/UI/Button/Button';
@@ -12,9 +12,9 @@ import Input from '../../../components/UI/Input/Input';
 
 import {updateObject, checkValidity} from '../../../shared/utility';
 
-class ContactData extends Component {
-    state = {
-        orderForm: { //Cada elemento no formulário tem um key value (nome) e as configurações.
+const ContactData = props => {
+
+   const [orderForm, setOrderForm] = useState({ //Cada elemento no formulário tem um key value (nome) e as configurações.
             name: {  //<- NOME
                 elementType: 'input',               //  _   Tipo do input
                 elementConfig: {                    //   _
@@ -96,57 +96,56 @@ class ContactData extends Component {
                 validation: {},
                 valid: true
             },
-        },
-        formIsValid: false,         // checka se o formulário num geral é valido
-    }
+        })
+      const [formIsValid, setFormIsValid] = useState(false)         // checka se o formulário num geral é valido
+    
 
-    orderHandler = (e) => {
+   const orderHandler = (e) => {
         e.preventDefault();
         const formData = {}
-        for (let formElementIdentifier in this.state.orderForm) {
-            formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value; // atribui o nome do identificador ao valor do mesmo no state
+        for (let formElementIdentifier in orderForm) {
+            formData[formElementIdentifier] = orderForm[formElementIdentifier].value; // atribui o nome do identificador ao valor do mesmo no state
         }
         const order = {
-            ingredients: this.props.ingr,
-            price: this.props.tPrice,
+            ingredients: props.ingr,
+            price: props.tPrice,
             orderData: formData,
-            userId: this.props.userId
+            userId: props.userId
         }
-        this.props.onOrderBurguer(order,this.props.token);
+        props.onOrderBurguer(order,props.token);
     }
 
 
-    inputChangedHandler = (e, inputIdentifier) => {
+   const inputChangedHandler = (e, inputIdentifier) => {
        
-        const updatedFormElement = updateObject(this.state.orderForm[inputIdentifier], {
+        const updatedFormElement = updateObject(orderForm[inputIdentifier], {
             value:e.target.value,
-            valid: checkValidity(e.target.value,this.state.orderForm[inputIdentifier].validation),
+            valid: checkValidity(e.target.value,orderForm[inputIdentifier].validation),
             touched:true
         })
-        const updatedOrderForm = updateObject(this.state.orderForm,{
+        const updatedOrderForm = updateObject(orderForm,{
             [inputIdentifier]: updatedFormElement
         })
         
         let formIsValid = true; 
-
         for (let inputIdentifier in updatedOrderForm) {
           formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
         }
         
-        this.setState({ orderForm: updatedOrderForm, formIsValid: formIsValid }); //atualiza o state
+        setOrderForm(updatedOrderForm);
+        setFormIsValid(formIsValid);   //atualiza o state
     }
 
-    render() {
         const formElementsArray = [];
-
-        for (let key in this.state.orderForm) {
+        for (let key in orderForm) {
             formElementsArray.push({
                 id: key,
-                config: this.state.orderForm[key]  // transforma o objeto no array formElements com o nome e as configurações
+                config: orderForm[key]  // transforma o objeto no array formElements com o nome e as configurações
             })
         }
+
         let form = (
-            <form onSubmit={this.orderHandler}>
+            <form onSubmit={orderHandler}>
                 {formElementsArray.map(formElement => ( //renderiza um componente pra cada valor presente no array passando as informações do state como props para o componente personalizado
                     <Input
                         key={formElement.id}
@@ -156,21 +155,23 @@ class ContactData extends Component {
                         invalid={!formElement.config.valid}
                         shouldValidate={formElement.config.validation}
                         touched={formElement.config.touched}
-                        changed={(e) => this.inputChangedHandler(e, formElement.id)}/>
+                        changed={(e) => inputChangedHandler(e, formElement.id)}/>
                 ))}
-                <Button btnType="Success" disabled={!this.state.formIsValid}>Order</Button>
+                <Button btnType="Success" disabled={!formIsValid}>Order</Button>
             </form>
         );
-        if (this.props.loading) {
+
+        if (props.loading) {
             form = <Spinner />
         }
+
         return (
             <div className={classes.ContactData}>
                 <h4>Enter your Contact Data</h4>
                 {form}
             </div>
         )
-    }
+    
 }
 
 const mapStateToProps = state => {

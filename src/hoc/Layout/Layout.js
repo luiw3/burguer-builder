@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import Aux from '../Auxiliary/auxilliary';
@@ -13,40 +13,34 @@ import classes from './Layout.module.css';
  * e é colocado em volta ao conteúdo principal no arquivo App.js
  * 
  */
-class Layout extends Component {
-    state ={
-        showSideDrawer: false
+const Layout = props => {
+
+    const [ showSideDrawer, setShowSideDrawer ] = useState(false)
+
+
+   const sideDrawerClosedHandler = () => {
+        setShowSideDrawer(false)
     }
 
-    sideDrawerClosedHandler = () => {
-        this.setState({showSideDrawer: false});
+   const sideDrawerOpenHandler = () => {
+        setShowSideDrawer(!showSideDrawer)         
     }
-
-    sideDrawerOpenHandler = () => {
-        this.setState( (prevState) => {
-            return {showSideDrawer: !prevState.showSideDrawer}
-        }
-        )           
-    }
-    render() {
 
         return (
             <Aux>
                 <Toolbar 
-                open={this.sideDrawerOpenHandler}
-                isAuth={this.props.isAuthenticated}/>
+                open={sideDrawerOpenHandler}
+                isAuth={props.isAuthenticated}/>
                 <Sidedrawer 
-                closed={this.sideDrawerClosedHandler}
-                open={this.state.showSideDrawer}
-                isAuth={this.props.isAuthenticated}/>
+                closed={sideDrawerClosedHandler}
+                open={showSideDrawer}
+                isAuth={props.isAuthenticated}/>
                 <main className={classes.Content}>
-                    {this.props.children}
+                    {props.children}
                 </main>
             </Aux>
         );
     }
-
-}
 
 const mapStateToProps = state => {
     return{
